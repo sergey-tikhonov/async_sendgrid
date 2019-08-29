@@ -2,10 +2,13 @@ import logging
 from typing import Optional
 
 import requests_async as requests
+from requests_async import Response
+
+__all__ = ['SendgridAPI']
 
 
 class SendgridAPI:
-    def __init__(self, api_key):
+    def __init__(self, api_key: str):
         self._api_key = api_key
         self._url = f'https://api.sendgrid.com/v3/mail/send'
         self._useragent = 'async_sendgrid/0.0.1;python'
@@ -29,8 +32,8 @@ class SendgridAPI:
         template_id: str,
         from_name: Optional[str] = None,
         to_name: Optional[str] = None,
-        template_data=None,
-    ):
+        template_data: Optional[dict] = None,
+    ) -> Response:
         logging.info(f'Sending email to {to_email}')
 
         from_ = {'email': from_email}
